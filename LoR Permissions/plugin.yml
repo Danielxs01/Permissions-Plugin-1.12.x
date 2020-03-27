@@ -1,0 +1,18 @@
+name: LoR_Permissions
+version: 0.1
+description: Permissions Plugin
+load: STARTUP
+author: SeltixSub aka. Daniel
+main: de.landofrails.permissions.Perm
+database: false
+prefix: LoR Permissions
+permissions:
+  landofrails.permissions.*:
+    default: false
+    description: Zugriff auf die Berechtigungen
+commands:
+  perm:
+    description: Konfiguriert die Permissions
+    permission: landofrails.permissions.*
+    aliases: [permissions, permission]
+    usage: Benutze /perm help um Hilfe zu erhalten.

@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/de/landofrails/permissions/MessageReceiver.java=UTF-8
+encoding//src/de/landofrails/permissions/commands/CommandHandler.java=UTF-8
+encoding//src/de/landofrails/permissions/commands/player/CH_Add.java=UTF-8
+encoding//src/de/landofrails/permissions/commands/player/CH_Remove.java=UTF-8
