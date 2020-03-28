@@ -3,6 +3,13 @@ package de.landofrails.permissions.database.objects;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * 
+ * Klase für die Zuordnung von Spieler, Permissions und seiner Gruppe
+ * 
+ * @author Daniel
+ *
+ */
 public class DBPlayer {
 
 	private UUID player = null;

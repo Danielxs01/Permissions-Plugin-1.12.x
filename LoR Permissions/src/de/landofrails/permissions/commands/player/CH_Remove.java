@@ -5,7 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.Permission;
 
 import de.landofrails.permissions.MessageReceiver;
 import de.landofrails.permissions.Perm;
@@ -29,14 +28,13 @@ public class CH_Remove implements CommandExecutor {
 
 		@SuppressWarnings("deprecation")
 		Player player = Bukkit.getPlayer(args[1]);
-		Permission permission = new Permission(args[2]);
+		String permission = args[2];
 
 		if (player != null) {
 
-			mr.send("ERROR: Not implemented");
+			perm.getPermissionHandler().removePermissionFromPlayer(player, permission);
 
-			mr.send("§6Spieler §e" + player.getName() + " §6wurde die Permission \"§e" + permission.getName()
-					+ " §6\"entzogen!");
+			mr.send("§6Spieler §e" + player.getName() + " §6wurde die Permission \"§e" + permission + " §6\"entzogen!");
 
 		} else {
 

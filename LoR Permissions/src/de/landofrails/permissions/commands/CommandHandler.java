@@ -20,7 +20,6 @@ public class CommandHandler implements CommandExecutor {
 
 	public CommandHandler(Perm perm) {
 
-		// Player
 		param_handlers.put("add", new CH_Add(perm));
 		param_handlers.put("remove", new CH_Remove(perm));
 		param_handlers.put("permlist", new CH_Permlist(perm));

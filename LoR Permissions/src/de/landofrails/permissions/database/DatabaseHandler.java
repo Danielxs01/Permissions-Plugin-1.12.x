@@ -10,15 +10,20 @@ import de.landofrails.permissions.database.objects.Group;
 
 public class DatabaseHandler {
 
+	// Hauptklasse und lokale Klasse
 	private static Perm perm = null;
 	private static DatabaseHandler handler = null;
 
+	// Liste aller Gruppen
 	private ArrayList<Group> groups = new ArrayList<Group>();
 
 	private DatabaseHandler() {
-
+		// Private, da Singleton
+		// (Nur eine Instanz erlaubt)
 	}
 
+	// [Singleton] Methode um die Instanz zu bekommen
+	// Wird zu erst von der Hauptklasse [Perm] mit getInstance(this) ausgerufen
 	public static DatabaseHandler getInstance(Perm perm) {
 		if (perm != null)
 			DatabaseHandler.perm = perm;
@@ -27,6 +32,7 @@ public class DatabaseHandler {
 		return handler;
 	}
 
+	// Speichern der Spielerdaten
 	public void savePlayerData(Player player, Group group, ArrayList<String> permissions) {
 		String path = "players." + player.getUniqueId().toString();
 		perm.getConfig().set(path + ".name", player.getName());
@@ -37,6 +43,7 @@ public class DatabaseHandler {
 		perm.saveConfig();
 	}
 
+	// Rückgabe der gespeicherten Spielerdaten
 	public DBPlayer getDBPlayer(Player player) {
 
 		perm.reloadConfig();
