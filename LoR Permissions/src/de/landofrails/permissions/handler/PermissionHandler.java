@@ -38,9 +38,11 @@ public class PermissionHandler {
 	public void addPermissionToPlayer(Player player, String permission) {
 
 		// Hat der Spieler einen Eintrag oder muss einer erstellt werden?
-		PlayerPAA playerPAA = playerPAAs.stream().filter(pp -> pp.getPlayer().equals(player)).findAny().get();
-		if (playerPAA == null) {
-			playerPAA = new PlayerPAA(player, new ArrayList<PermAndAtt>());
+		PlayerPAA playerPAA = null;
+		try {
+			playerPAA = playerPAAs.stream().filter(pp -> pp.getPlayer().equals(player)).findAny().get();
+		} catch (NullPointerException e) {
+
 		}
 
 		if (!playerPAA.hasPermission(permission)) {
@@ -54,8 +56,12 @@ public class PermissionHandler {
 	}
 
 	public void removePermissionFromPlayer(Player player, String permission) {
+		PlayerPAA playerPAA = null;
+		try {
+			playerPAA = playerPAAs.stream().filter(pp -> pp.getPlayer().equals(player)).findAny().get();
+		} catch (NullPointerException e) {
 
-		PlayerPAA playerPAA = playerPAAs.stream().filter(pp -> pp.getPlayer().equals(player)).findAny().get();
+		}
 		if (playerPAA != null) {
 
 			if (playerPAA.hasPermission(permission)) {

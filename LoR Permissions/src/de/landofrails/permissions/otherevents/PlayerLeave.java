@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import de.landofrails.permissions.Perm;
 import de.landofrails.permissions.database.DatabaseHandler;
@@ -25,7 +25,7 @@ public class PlayerLeave implements Listener {
 
 	// Event Logik für "onPlayerLeave"
 	@EventHandler
-	public void onPlayerLeave(PlayerJoinEvent event) {
+	public void onPlayerQuit(PlayerQuitEvent event) {
 		// Der gegangene Spieler
 		Player player = event.getPlayer();
 
