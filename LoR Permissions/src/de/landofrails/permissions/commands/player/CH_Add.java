@@ -1,10 +1,13 @@
 package de.landofrails.permissions.commands.player;
 
+import java.util.Set;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 
 import de.landofrails.permissions.MessageReceiver;
 import de.landofrails.permissions.Perm;
@@ -33,8 +36,17 @@ public class CH_Add implements CommandExecutor {
 
 		if (player != null) {
 
-			perm.getPermissionHandler().addPermissionToPlayer(player, permission);
-
+			if (permission.endsWith("*")) {
+				String cut = permission.substring(0, permission.length() - 2);
+				System.out.println("Cut: " + cut); // TODO: Entfernen
+				Set<Permission> permissions = Bukkit.getPluginManager().getPermissions();
+				for (Permission p : permissions) {
+					if (p.getName().startsWith(cut))
+						perm.getPermissionHandler().addPermissionToPlayer(player, p.getName());
+				}
+			} else {
+				perm.getPermissionHandler().addPermissionToPlayer(player, permission);
+			}
 			mr.send("§2Spieler §a" + player.getName() + " §2hat nun die Permission §a\"" + permission + "\"");
 
 		} else {

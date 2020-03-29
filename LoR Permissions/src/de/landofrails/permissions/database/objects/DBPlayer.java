@@ -3,6 +3,8 @@ package de.landofrails.permissions.database.objects;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import de.landofrails.permissions.handler.Group;
+
 /**
  * 
  * Klase für die Zuordnung von Spieler, Permissions und seiner Gruppe

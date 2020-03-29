@@ -1,4 +1,4 @@
-package de.landofrails.permissions.database.objects;
+package de.landofrails.permissions.handler;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -16,40 +16,14 @@ public class Group {
 	private UUID groupID = null;
 	private String groupName = null;
 	private ArrayList<String> permissions = new ArrayList<String>();
-	private Group extendsGroup = null;
-	private String prefix = null;
-	private String suffix = null;
+	private UUID extendsGroupID = null;
 
 	// Konstruktor
-	public Group(UUID groupID, String groupName, ArrayList<String> permissions, Group extendsGroup) {
+	public Group(UUID groupID, String groupName, ArrayList<String> permissions, UUID extendsGroupID) {
 		this.groupID = groupID;
 		this.groupName = groupName;
 		this.permissions = permissions;
-		this.extendsGroup = extendsGroup;
-	}
-
-	/**
-	 * 
-	 * Methode zum Ändern des Prefixes. Gibt die Gruppe mit der Anpassung zurück
-	 * 
-	 * @param prefix
-	 * @return
-	 */
-	public Group setPrefix(String prefix) {
-		this.prefix = prefix;
-		return this;
-	}
-
-	/**
-	 * 
-	 * Methode zum Ändern des Suffixes. Gibt die Gruppe mit der Anpassung zurück
-	 * 
-	 * @param suffix
-	 * @return
-	 */
-	public Group setSuffix(String suffix) {
-		this.suffix = suffix;
-		return this;
+		this.extendsGroupID = extendsGroupID;
 	}
 
 	/**
@@ -65,8 +39,8 @@ public class Group {
 	}
 
 	// Gibt die Gruppe zurück, welche durch diese erweitert wird.
-	public Group getExtendsGroup() {
-		return extendsGroup;
+	public UUID getExtendsGroupID() {
+		return extendsGroupID;
 	}
 
 	// Gibt die GruppenID (UUID) zurück
@@ -83,15 +57,4 @@ public class Group {
 	public ArrayList<String> getPermissions() {
 		return permissions;
 	}
-
-	// Gibt den Prefix zurück
-	public String getPrefix() {
-		return prefix == null ? groupName : prefix;
-	}
-
-	// Gibt den Suffix zurück
-	public String getSuffix() {
-		return suffix == null ? "" : suffix;
-	}
-
 }

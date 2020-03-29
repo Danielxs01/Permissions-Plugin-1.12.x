@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import de.landofrails.permissions.commands.CommandHandler;
 import de.landofrails.permissions.database.DatabaseHandler;
+import de.landofrails.permissions.handler.GroupHandler;
 import de.landofrails.permissions.handler.PermissionHandler;
 import de.landofrails.permissions.otherevents.PlayerJoin;
 import de.landofrails.permissions.otherevents.PlayerLeave;
@@ -23,6 +24,7 @@ public class Perm extends JavaPlugin implements Listener {
 	public DatabaseHandler database = null;
 	//
 	private PermissionHandler permissionHandler = null;
+	private GroupHandler groupHandler = null;
 
 	@Override
 	public void onLoad() {
@@ -33,17 +35,19 @@ public class Perm extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 
+		logger.info("Starten..");
+
 		// Speichern der aktuellen Instanz
 		perm = this;
-
-		// Initialisierung des PermissionHandlers
-		permissionHandler = PermissionHandler.getInstance(this);
 
 		// Config konfigurieren und den DatabaseHandler initialisieren
 		getConfig().options().copyDefaults(true);
 		database = DatabaseHandler.getInstance(this);
 
-		logger.info("Starten..");
+		// Initialisierung des PermissionHandlers
+		permissionHandler = PermissionHandler.getInstance(this);
+		groupHandler = GroupHandler.getInstance();
+		groupHandler.init(database.getGroups());
 
 		// Der Konsole die /perm Permission ("landofrails.permissions.*") geben
 		PermissionAttachment permAtt = this.getServer().getConsoleSender().addAttachment(this);
@@ -55,6 +59,8 @@ public class Perm extends JavaPlugin implements Listener {
 		// PlayerJoin und -Leave registrieren
 		Bukkit.getPluginManager().registerEvents(new PlayerJoin(this), this);
 		Bukkit.getPluginManager().registerEvents(new PlayerLeave(this), this);
+
+		logger.info("Gestartet..");
 
 	}
 
@@ -68,6 +74,10 @@ public class Perm extends JavaPlugin implements Listener {
 		// Information, dass das Plugin stoppt
 		logger.info("Stoppen..");
 
+	}
+
+	public GroupHandler getGroupHandler() {
+		return groupHandler;
 	}
 
 }

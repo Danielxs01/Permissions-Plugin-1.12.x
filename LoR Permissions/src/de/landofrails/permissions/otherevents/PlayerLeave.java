@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import de.landofrails.permissions.Perm;
 import de.landofrails.permissions.database.DatabaseHandler;
-import de.landofrails.permissions.database.objects.Group;
+import de.landofrails.permissions.handler.Group;
 
 public class PlayerLeave implements Listener {
 

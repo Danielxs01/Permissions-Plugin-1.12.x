@@ -39,19 +39,24 @@ public class PermissionHandler {
 
 		// Hat der Spieler einen Eintrag oder muss einer erstellt werden?
 		PlayerPAA playerPAA = null;
+		ArrayList<PermAndAtt> list = new ArrayList<PermAndAtt>();
+
 		try {
 			playerPAA = playerPAAs.stream().filter(pp -> pp.getPlayer().equals(player)).findAny().get();
-		} catch (NullPointerException e) {
+			list.addAll(playerPAA.getList());
+			playerPAAs.remove(playerPAA);
+		} catch (Exception e) {
 
 		}
 
-		if (!playerPAA.hasPermission(permission)) {
+		playerPAA = new PlayerPAA(player, new ArrayList<PermAndAtt>());
 
-			PermissionAttachment pa = player.addAttachment(perm);
-			pa.setPermission(permission, true);
-			playerPAA.addToList(new PermAndAtt(permission, pa));
-
-		}
+		PermissionAttachment pa = player.addAttachment(perm);
+		pa.setPermission(permission, true);
+		list.add(new PermAndAtt(permission, pa));
+		for (PermAndAtt paa : list)
+			playerPAA.addToList(paa);
+		playerPAAs.add(playerPAA);
 
 	}
 
@@ -59,20 +64,25 @@ public class PermissionHandler {
 		PlayerPAA playerPAA = null;
 		try {
 			playerPAA = playerPAAs.stream().filter(pp -> pp.getPlayer().equals(player)).findAny().get();
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 
 		}
 		if (playerPAA != null) {
 
 			if (playerPAA.hasPermission(permission)) {
-
+				ArrayList<PermAndAtt> list = new ArrayList<PermAndAtt>();
 				for (PermAndAtt paa : playerPAA.getList()) {
 					if (paa.getPermission().equalsIgnoreCase(permission)) {
+
 						PermissionAttachment pa = paa.getPermissionAttachment();
-						pa.setPermission(permission, false);
+						pa.unsetPermission(permission);
 						player.removeAttachment(pa);
-						playerPAA.removeFromList(paa);
+						list.add(paa);
+
 					}
+				}
+				for (PermAndAtt paa : list) {
+					playerPAA.removeFromList(paa);
 				}
 
 			}
@@ -80,4 +90,5 @@ public class PermissionHandler {
 		}
 
 	}
+
 }
